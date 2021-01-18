@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="810da186-c329-4c18-8d32-7abf687d2676" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$USER_HOME$/apache-maven-3.5.4/repo" />
+        <option name="mavenHome" value="$USER_HOME$/apache-maven-3.5.4" />
+        <option name="userSettingsFile" value="$USER_HOME$/apache-maven-3.5.4/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
+  </component>
+  <component name="ProjectId" id="1nCjCIkCEKL5cENT2P3ChfuDPU8" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/jimwang/jimblog/commonUtils" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jimwang.jimblog.handler" />
+      <recent name="com.jimwang.jimblog.commonUtils" />
+      <recent name="com.jimwang.generator" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/jimwang/jimblog/commonUtils" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/jimwang/jimblog" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.JimblogApplication">
+    <configuration name="CodeGenerator.run" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jimblog_back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="generator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="generator" />
+      <option name="MAIN_CLASS_NAME" value="generator.CodeGenerator" />
+      <option name="METHOD_NAME" value="run" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JimblogApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="jimblog_back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jimwang.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jimwang.JimblogApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.JimblogApplication" />
+        <item itemvalue="JUnit.CodeGenerator.run" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="810da186-c329-4c18-8d32-7abf687d2676" name="Default Changelist" comment="" />
+      <created>1610900837084</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610900837084</updated>
+      <workItem from="1610900843258" duration="637000" />
+      <workItem from="1610901515897" duration="864000" />
+      <workItem from="1610903947406" duration="4628000" />
+      <workItem from="1610998728567" duration="1940000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="876" y="451" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1610904241065">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state x="876" y="451" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.25.1920.996@0.25.1920.996" timestamp="1610904241065" />
+    <state x="1100" y="408" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1610904244031">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state x="1100" y="408" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.25.1920.996@0.25.1920.996" timestamp="1610904244031" />
+    <state x="823" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610999592162">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state x="823" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1920.996@0.25.1920.996" timestamp="1610999592162" />
+    <state width="1157" height="250" key="GridCell.Tab.0.bottom" timestamp="1610914263330">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.0.bottom/0.25.1920.996@0.25.1920.996" timestamp="1610914263330" />
+    <state width="1157" height="250" key="GridCell.Tab.0.center" timestamp="1610914263330">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.0.center/0.25.1920.996@0.25.1920.996" timestamp="1610914263330" />
+    <state width="1157" height="250" key="GridCell.Tab.0.left" timestamp="1610914263329">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.0.left/0.25.1920.996@0.25.1920.996" timestamp="1610914263329" />
+    <state width="1157" height="250" key="GridCell.Tab.0.right" timestamp="1610914263330">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.0.right/0.25.1920.996@0.25.1920.996" timestamp="1610914263330" />
+    <state width="1157" height="250" key="GridCell.Tab.1.bottom" timestamp="1610914263331">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.1.bottom/0.25.1920.996@0.25.1920.996" timestamp="1610914263331" />
+    <state width="1157" height="250" key="GridCell.Tab.1.center" timestamp="1610914263331">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.1.center/0.25.1920.996@0.25.1920.996" timestamp="1610914263331" />
+    <state width="1157" height="250" key="GridCell.Tab.1.left" timestamp="1610914263330">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.1.left/0.25.1920.996@0.25.1920.996" timestamp="1610914263330" />
+    <state width="1157" height="250" key="GridCell.Tab.1.right" timestamp="1610914263331">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state width="1157" height="250" key="GridCell.Tab.1.right/0.25.1920.996@0.25.1920.996" timestamp="1610914263331" />
+    <state x="505" y="316" key="Registry" timestamp="1610901169953">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state x="505" y="316" key="Registry/0.25.1920.996@0.25.1920.996" timestamp="1610901169953" />
+    <state x="469" y="159" key="SettingsEditor" timestamp="1610904855954">
+      <screen x="0" y="25" width="1920" height="996" />
+    </state>
+    <state x="469" y="159" key="SettingsEditor/0.25.1920.996@0.25.1920.996" timestamp="1610904855954" />
+  </component>
+</project>
