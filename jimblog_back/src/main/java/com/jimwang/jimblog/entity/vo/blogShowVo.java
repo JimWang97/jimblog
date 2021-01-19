@@ -1,12 +1,14 @@
 package com.jimwang.jimblog.entity.vo;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class AdminShowBlogVo {
+@Accessors(chain = true)
+public class blogShowVo {
 
     private Long id;
 
@@ -14,7 +16,7 @@ public class AdminShowBlogVo {
 
     private String content;
 
-    private String type;
+    private boolean type;
 
     private int views;
 

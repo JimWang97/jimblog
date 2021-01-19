@@ -1,11 +1,14 @@
 package com.jimwang.jimblog.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jimwang.jimblog.commonUtils.R;
 import com.jimwang.jimblog.entity.JBlog;
+import com.jimwang.jimblog.entity.JBlogTag;
 import com.jimwang.jimblog.entity.vo.AdminEditBlogVo;
-import com.jimwang.jimblog.entity.vo.AdminShowBlogVo;
+import com.jimwang.jimblog.entity.vo.blogShowVo;
 import com.jimwang.jimblog.service.JBlogService;
+import com.jimwang.jimblog.service.JBlogTagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,8 @@ import java.util.List;
 public class JBlogController {
     @Autowired
     private JBlogService jBlogService;
+    @Autowired
+    private JBlogTagService jBlogTagService;
 
 //    admin操作
 
@@ -39,7 +44,14 @@ public class JBlogController {
         jBlog.setLastEdit(new Date());
         boolean flag = jBlogService.save(jBlog);
         if (flag) {
-            return R.ok().message("添加博客成功");
+            List<String> tags = adminEditBlogVo.getTags();
+            boolean flag1 = true;
+            for(String tag : tags) {
+                flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
+            }
+            if(flag1) {
+                return R.ok().message("添加博客成功");
+            }
         }
         return R.error().message("添加博客失败");
     }
@@ -83,18 +95,43 @@ public class JBlogController {
     @GetMapping("/admin/blogs")
     public R adminGetBlogs() {
         List<JBlog> jBlogs = jBlogService.list();
-        List<AdminShowBlogVo> adminShowBlogVos = new ArrayList<>();
+        List<blogShowVo> blogShowVos = new ArrayList<>();
         for(JBlog jb : jBlogs) {
-            //todo jblog封装到showblogvo中
+            blogShowVo blogShowVo = new blogShowVo();
+            BeanUtils.copyProperties(jb, blogShowVo);
+
+            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+            Long id = jb.getId();
+            qw.eq("blog_id", id);
+
+            List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
+            List<String> tags = new ArrayList<>();
+            for(JBlogTag jt : jBlogTags) {
+                tags.add(jt.getTag());
+            }
+            blogShowVo.setTags(tags);
+            blogShowVos.add(blogShowVo);
         }
-        return R.ok().message("查询成功").data("blogs", jBlogService.list());
+        return R.ok().message("查询成功").data("blogs", blogShowVos);
     }
 
     @GetMapping("/admin/blog/{id}")
     public R adminGetBlog(@PathVariable Long id) {
         JBlog jBlog = jBlogService.getById(id);
         if(jBlog!=null) {
-            return R.ok().message("查询成功").data("blog", jBlog);
+            blogShowVo blogShowVo = new blogShowVo();
+            BeanUtils.copyProperties(jBlog, blogShowVo);
+
+            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+            qw.eq("blog_id", jBlog.getId());
+
+            List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
+            List<String> tags = new ArrayList<>();
+            for(JBlogTag jt : jBlogTags) {
+                tags.add(jt.getTag());
+            }
+            blogShowVo.setTags(tags);
+            return R.ok().message("查询成功").data("blog", blogShowVo);
         }
         return R.error().message("查询失败或不存在该博客");
     }
@@ -106,16 +143,43 @@ public class JBlogController {
     public R getBlog(@PathVariable Long id) {
         JBlog jBlog = jBlogService.getById(id);
         if(jBlog!=null) {
+            blogShowVo blogShowVo = new blogShowVo();
+            BeanUtils.copyProperties(jBlog, blogShowVo);
 
-            return R.ok().message("查询成功").data("blog", jBlog);
+            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+            qw.eq("blog_id", jBlog.getId());
+
+            List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
+            List<String> tags = new ArrayList<>();
+            for(JBlogTag jt : jBlogTags) {
+                tags.add(jt.getTag());
+            }
+            blogShowVo.setTags(tags);
+            return R.ok().message("查询成功").data("blog", blogShowVo);
         }
         return R.error().message("查询失败或不存在该博客");
     }
 
     @GetMapping("/blogs")
     public R getBlogs() {
-        //todo jblog封装到showblogvo中
-        return R.ok().message("查询成功").data("blogs", jBlogService.list());
+        List<JBlog> jBlogs = jBlogService.list();
+        List<blogShowVo> blogShowVos = new ArrayList<>();
+        for(JBlog jb : jBlogs) {
+            blogShowVo blogShowVo = new blogShowVo();
+            BeanUtils.copyProperties(jb, blogShowVo);
+
+            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+            qw.eq("blog_id", jb.getId());
+
+            List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
+            List<String> tags = new ArrayList<>();
+            for(JBlogTag jt : jBlogTags) {
+                tags.add(jt.getTag());
+            }
+            blogShowVo.setTags(tags);
+            blogShowVos.add(blogShowVo);
+        }
+        return R.ok().message("查询成功").data("blogs", blogShowVos);
     }
 }
 

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author jimwang
- * @since 2021-01-17
+ * @since 2021-01-19
  */
 public interface JBlogTagService extends IService<JBlogTag> {
 

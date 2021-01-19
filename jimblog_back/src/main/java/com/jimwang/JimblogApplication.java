@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication
-@MapperScan(basePackages = {"com.jimwang"})
+@MapperScan(basePackages = {"com.jimwang.jimblog.mapper"})
 public class JimblogApplication {
     public static void main(String[] args) {
         SpringApplication.run(JimblogApplication.class, args);

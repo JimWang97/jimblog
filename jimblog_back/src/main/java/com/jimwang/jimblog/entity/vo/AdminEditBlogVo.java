@@ -16,5 +16,5 @@ public class AdminEditBlogVo {
 
     private Boolean recommend;
 
-    private List<Long> tagIds;
+    private List<String> tags;
 }
