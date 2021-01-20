@@ -2,6 +2,7 @@ package com.jimwang.jimblog.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jimwang.jimblog.commonUtils.R;
 import com.jimwang.jimblog.entity.JBlog;
 import com.jimwang.jimblog.entity.JBlogTag;
@@ -92,14 +93,23 @@ public class JBlogController {
         return R.error().message("修改博客失败");
     }
 
-    @GetMapping("/admin/blogs")
-    public R adminGetBlogs() {
-        List<JBlog> jBlogs = jBlogService.list();
+    @GetMapping("/admin/blogs/{page}/{limit}")
+    public R adminGetBlogs(@PathVariable long page, @PathVariable long limit) {
+        Page<JBlog> pageBlog = new Page<>(page, limit);
+        QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
+        qw1.orderByDesc("last_edit");
+        jBlogService.page(pageBlog, qw1);
+        long total = pageBlog.getTotal();
+        List<JBlog> jBlogs = pageBlog.getRecords();
         List<blogShowVo> blogShowVos = new ArrayList<>();
         for(JBlog jb : jBlogs) {
             blogShowVo blogShowVo = new blogShowVo();
             BeanUtils.copyProperties(jb, blogShowVo);
-
+            if(jb.getType()){
+                blogShowVo.setType("原创");
+            } else {
+                blogShowVo.setType("转载");
+            }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
             Long id = jb.getId();
             qw.eq("blog_id", id);
@@ -112,7 +122,7 @@ public class JBlogController {
             blogShowVo.setTags(tags);
             blogShowVos.add(blogShowVo);
         }
-        return R.ok().message("查询成功").data("blogs", blogShowVos);
+        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
     }
 
     @GetMapping("/admin/blog/{id}")
@@ -121,7 +131,11 @@ public class JBlogController {
         if(jBlog!=null) {
             blogShowVo blogShowVo = new blogShowVo();
             BeanUtils.copyProperties(jBlog, blogShowVo);
-
+            if(jBlog.getType()){
+                blogShowVo.setType("原创");
+            } else {
+                blogShowVo.setType("转载");
+            }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
             qw.eq("blog_id", jBlog.getId());
 
@@ -136,6 +150,23 @@ public class JBlogController {
         return R.error().message("查询失败或不存在该博客");
     }
 
+    @GetMapping("/admin/getStat")
+    public R getStat() {
+        long blogCount=0, sumView=0;
+        QueryWrapper<JBlog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("sum(views) as sumView, count(id) as blogCount");
+        JBlog b= jBlogService.getOne(queryWrapper);
+        //注意，空指针问题
+        if (b== null){
+            sumView=(Long.valueOf(0));
+            blogCount=(Long.valueOf(0));
+        }else{
+            sumView=(b.getSumView());
+            blogCount=(b.getBlogCount());
+        }
+        return R.ok().data("count", blogCount).data("views", sumView);
+    }
+
 
 //    用户操作
 
@@ -145,7 +176,11 @@ public class JBlogController {
         if(jBlog!=null) {
             blogShowVo blogShowVo = new blogShowVo();
             BeanUtils.copyProperties(jBlog, blogShowVo);
-
+            if(jBlog.getType()){
+                blogShowVo.setType("原创");
+            } else {
+                blogShowVo.setType("转载");
+            }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
             qw.eq("blog_id", jBlog.getId());
 
@@ -161,15 +196,25 @@ public class JBlogController {
     }
 
     @GetMapping("/blogs")
-    public R getBlogs() {
-        List<JBlog> jBlogs = jBlogService.list();
+    public R getBlogs(@PathVariable long page, @PathVariable long limit) {
+        Page<JBlog> pageBlog = new Page<>(page, limit);
+        QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
+        qw1.orderByDesc("last_edit");
+        jBlogService.page(pageBlog, qw1);
+        long total = pageBlog.getTotal();
+        List<JBlog> jBlogs = pageBlog.getRecords();
         List<blogShowVo> blogShowVos = new ArrayList<>();
         for(JBlog jb : jBlogs) {
             blogShowVo blogShowVo = new blogShowVo();
             BeanUtils.copyProperties(jb, blogShowVo);
-
+            if(jb.getType()){
+                blogShowVo.setType("原创");
+            } else {
+                blogShowVo.setType("转载");
+            }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
-            qw.eq("blog_id", jb.getId());
+            Long id = jb.getId();
+            qw.eq("blog_id", id);
 
             List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
             List<String> tags = new ArrayList<>();
@@ -179,7 +224,7 @@ public class JBlogController {
             blogShowVo.setTags(tags);
             blogShowVos.add(blogShowVo);
         }
-        return R.ok().message("查询成功").data("blogs", blogShowVos);
+        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
     }
 }
 

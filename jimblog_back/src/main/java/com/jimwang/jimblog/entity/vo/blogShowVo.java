@@ -16,7 +16,7 @@ public class blogShowVo {
 
     private String content;
 
-    private boolean type;
+    private String type;
 
     private int views;
 

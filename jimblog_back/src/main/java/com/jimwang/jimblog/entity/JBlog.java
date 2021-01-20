@@ -66,4 +66,14 @@ public class JBlog implements Serializable {
     private Boolean type;
 
 
+    /**
+     * 总浏览量
+     */
+    @TableField(exist = false)
+    private Long sumView;
+    /**
+     * 总文章数
+     */
+    @TableField(exist = false)
+    private Long blogCount;
 }
