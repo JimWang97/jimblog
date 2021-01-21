@@ -73,6 +73,7 @@ public class JBlogController {
     @DeleteMapping("/admin/blog/{id}")
     public R adminDeleteBlog(@PathVariable Long id) {
         boolean flag = jBlogService.removeById(id);
+        // todo 把标签也一起删除。
         if (flag) {
             return R.ok().message("删除博客成功");
         }

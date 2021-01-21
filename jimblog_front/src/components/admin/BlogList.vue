@@ -74,7 +74,17 @@ export default {
       console.log(index, row)
     },
     handleDelete (index, row) {
-      console.log(index, row)
+      blogApi.adminDeleteBlog(row.id).then(res => {
+        if (res.code === 20000) {
+          this.$message({
+            message: res.message,
+            type: 'success'
+          })
+          this.getBlogs(this.page)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   },
   data () {

@@ -18,5 +18,11 @@ export default {
       method: 'post',
       data: blog
     })
+  },
+  adminDeleteBlog (id) {
+    return request({
+      url: `/api/admin/blog/${id}`,
+      method: 'delete'
+    })
   }
 }

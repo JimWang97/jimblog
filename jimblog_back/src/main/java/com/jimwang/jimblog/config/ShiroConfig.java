@@ -1,13 +1,17 @@
 package com.jimwang.jimblog.config;
 
+import com.jimwang.jimblog.filter.StatelessAuthcFilter;
 import com.jimwang.jimblog.realm.MyRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.boot.web.servlet.DispatcherType;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -39,6 +43,12 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setLoginUrl("/login"); // 配置用户登录请求 如果需要进行登录时，shiro就会转到这个请求进入登录页面
 //        shiroFilterFactoryBean.setSuccessUrl("/admin/index"); // 配置登录成功以后转向的请求地址
         shiroFilterFactoryBean.setUnauthorizedUrl("/login"); //配置没有权限时转向的请求地址
+
+        // 配置过滤器
+        Map<String, Filter> filters = new LinkedHashMap<>();
+        filters.put("authc", new StatelessAuthcFilter());
+        shiroFilterFactoryBean.setFilters(filters);
+
         // 配置权限拦截规则
         Map<String,String> filterChainMap = new LinkedHashMap<>();
 //        filterChainMap.put("/api/logout", "logout"); // 配置登出的请求，会清空内存
@@ -50,4 +60,5 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap); // 设置权限拦截规则
         return shiroFilterFactoryBean;
     }
+
 }

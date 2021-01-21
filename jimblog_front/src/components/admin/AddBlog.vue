@@ -60,7 +60,6 @@ import blogApi from '../../api/blogApi'
 import tagApi from '../../api/tagApi'
 import Markdown from 'vue-meditor'
 
-var qs = require('qs');
 export default {
   name: 'AddBlog',
   components: {
@@ -91,8 +90,8 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          blogApi.adminAddBlog(qs.stringify(this.ruleForm)).then(res => {
-            if (res === 20000) {
+          blogApi.adminAddBlog(this.ruleForm).then(res => {
+            if (res.code === 20000) {
               this.$message({
                 message: res.message,
                 type: 'success'
