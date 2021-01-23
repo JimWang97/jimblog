@@ -48,7 +48,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">发布</el-button>
-        <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+        <el-button type="primary" @click="saveForm('ruleForm')">保存</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -107,6 +107,26 @@ export default {
         }
       })
     },
+    saveForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          blogApi.adminSaveBlog(this.ruleForm).then(res => {
+            if (res.code === 20000) {
+              this.$message({
+                message: res.message,
+                type: 'success'
+              })
+              this.$router.push('/admin/index/bloglist')
+            } else {
+              this.$message.error(res.message)
+            }
+          })
+        } else {
+          this.$message.error('保存博客失败')
+          return false
+        }
+      })
+    },
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
@@ -120,6 +140,18 @@ export default {
   },
   created () {
     this.getTags()
+    if (this.$route.query) {
+      this.ruleForm.id = parseInt(this.$route.query.id)
+      blogApi.adminGetBlog(this.ruleForm.id).then(res => {
+        if (res.code === 20000) {
+          this.ruleForm.title = res.data.blog.title
+          this.ruleForm.recommend = res.data.blog.recommend
+          this.ruleForm.content = res.data.blog.content
+          this.ruleForm.tags = res.data.blog.tags
+          this.ruleForm.type = res.data.blog.type === '原创'
+        }
+      })
+    }
   }
 }
 </script>

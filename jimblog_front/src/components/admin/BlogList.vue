@@ -14,6 +14,8 @@
         </el-table-column>
         <el-table-column prop="type" label="类型" width="50">
         </el-table-column>
+        <el-table-column prop="published" label="发布" width="80">
+        </el-table-column>
         <el-table-column prop="content" :show-overflow-tooltip='true' label="描述">
         </el-table-column>
         <el-table-column prop="tags" label="标签" width="300" :show-overflow-tooltip='true'>
@@ -66,12 +68,18 @@ export default {
       blogApi.adminGetBlogs(this.page, this.limit).then(res => {
         if (res.code === 20000) {
           this.tableData = res.data.blogs
+          console.log(this.tableData)
           this.total = res.data.total
         }
       })
     },
     handleEdit (index, row) {
-      console.log(index, row)
+      this.$router.push({
+        path: '/admin/addBlog',
+        query: {
+          id: row.id
+        }
+      })
     },
     handleDelete (index, row) {
       blogApi.adminDeleteBlog(row.id).then(res => {

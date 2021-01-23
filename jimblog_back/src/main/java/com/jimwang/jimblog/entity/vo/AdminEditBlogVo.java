@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class AdminEditBlogVo {
 
+    private Long id;
+
     private String title;
 
     private String content;

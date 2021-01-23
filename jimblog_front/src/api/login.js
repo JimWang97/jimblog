@@ -6,5 +6,11 @@ export default {
       method: 'post',
       data: user
     })
+  },
+  logout () {
+    return request({
+      url: '/api/logout',
+      method: 'get'
+    })
   }
 }

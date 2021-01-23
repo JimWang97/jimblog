@@ -25,4 +25,6 @@ public class blogShowVo {
     private List<String> tags;
 
     private Date lastEdit;
+
+    private String published;
 }

@@ -1,7 +1,7 @@
 <template>
     <div>
       <div style="margin: 10px auto 0px 20px; text-align: right">
-        <el-button>注销</el-button>
+        <el-button @click="logout()">注销</el-button>
       </div>
       <el-container style="height: 730px; border: 1px solid #eee; margin-top: 50px">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import login from '../api/login'
+import { setToken } from '../../utils/auth'
 export default {
   name: 'adminIndex',
   data () {
@@ -57,6 +59,16 @@ export default {
     }
     return {
       tableData: Array(10).fill(item)
+    }
+  },
+  methods: {
+    logout () {
+      login.logout().then(res => {
+        if (res.code === 20000) {
+          this.$router.push('/login')
+          setToken('')
+        }
+      })
     }
   }
 }

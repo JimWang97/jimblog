@@ -18,17 +18,21 @@ const routes = [
     path: '/admin/index',
     name: 'AdminIndex',
     component: adminIndex,
+    meta: { type: 'login' },
     children: [{
       path: '/admin/index/blogdata',
       name: 'AdminBlogData',
+      meta: { type: 'login' },
       component: BlogData
     }, {
       path: '/admin/index/bloglist',
       name: 'AdminBlogList',
+      meta: { type: 'login' },
       component: BlogList
     }, {
       path: '/admin/addBlog',
       name: 'AdminAddBlog',
+      meta: { type: 'login' },
       component: AddBlog
     }]
   }

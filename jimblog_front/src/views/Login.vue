@@ -20,6 +20,7 @@
 
 <script>
 import login from '../api/login'
+import { setToken } from '../../utils/auth'
 export default {
   name: 'Login',
   data () {
@@ -50,6 +51,7 @@ export default {
                 message: res.message,
                 type: 'success'
               })
+              setToken('login')
               this.$router.push('/admin/index')
             } else {
               this.$message.error(res.message)

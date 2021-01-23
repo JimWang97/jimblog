@@ -39,59 +39,80 @@ public class JBlogController {
 
     @PostMapping("/admin/addBlog")
     public R adminAddBlog(@RequestBody AdminEditBlogVo adminEditBlogVo) {
-        JBlog jBlog = new JBlog();
-        BeanUtils.copyProperties(adminEditBlogVo, jBlog);
-        jBlog.setPublished(true);
-        jBlog.setLastEdit(new Date());
-        boolean flag = jBlogService.save(jBlog);
-        if (flag) {
-            List<String> tags = adminEditBlogVo.getTags();
-            boolean flag1 = true;
-            for(String tag : tags) {
-                flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
+        if(adminEditBlogVo.getId()==null) {
+            JBlog jBlog = new JBlog();
+            BeanUtils.copyProperties(adminEditBlogVo, jBlog);
+            jBlog.setPublished(true);
+            jBlog.setLastEdit(new Date());
+            boolean flag = jBlogService.save(jBlog);
+            if (flag) {
+                List<String> tags = adminEditBlogVo.getTags();
+                boolean flag1 = true;
+                for(String tag : tags) {
+                    flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
+                }
+                if(flag1) {
+                    return R.ok().message("添加博客成功");
+                }
             }
-            if(flag1) {
-                return R.ok().message("添加博客成功");
+            return R.error().message("添加博客失败");
+        } else {
+            JBlog jBlog = new JBlog();
+            BeanUtils.copyProperties(adminEditBlogVo, jBlog);
+            jBlog.setPublished(true);
+            jBlog.setLastEdit(new Date());
+            boolean flag = jBlogService.updateById(jBlog);
+            if(flag) {
+                return R.ok().message("修改博客成功");
             }
+            return R.error().message("修改博客失败");
         }
-        return R.error().message("添加博客失败");
     }
 
     @PostMapping("/admin/saveBlog")
     public R adminSaveBlog(@RequestBody AdminEditBlogVo adminEditBlogVo) {
-        JBlog jBlog = new JBlog();
-        BeanUtils.copyProperties(adminEditBlogVo, jBlog);
-        jBlog.setPublished(false);
-        jBlog.setLastEdit(new Date());
-        boolean flag = jBlogService.save(jBlog);
-        if (flag) {
-            return R.ok().message("保存博客成功");
+        if(adminEditBlogVo.getId()==null) {
+            JBlog jBlog = new JBlog();
+            BeanUtils.copyProperties(adminEditBlogVo, jBlog);
+            jBlog.setPublished(false);
+            jBlog.setLastEdit(new Date());
+            boolean flag = jBlogService.save(jBlog);
+            if (flag) {
+                List<String> tags = adminEditBlogVo.getTags();
+                boolean flag1 = true;
+                for(String tag : tags) {
+                    flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
+                }
+                if(flag1) {
+                    return R.ok().message("保存博客成功");
+                }
+            }
+            return R.error().message("保存博客失败");
+        } else {
+            JBlog jBlog = new JBlog();
+            BeanUtils.copyProperties(adminEditBlogVo, jBlog);
+            jBlog.setPublished(false);
+            jBlog.setLastEdit(new Date());
+            boolean flag = jBlogService.updateById(jBlog);
+            if(flag) {
+                return R.ok().message("保存博客成功");
+            }
+            return R.error().message("保存博客失败");
         }
-        return R.error().message("保存博客失败");
     }
 
     @DeleteMapping("/admin/blog/{id}")
     public R adminDeleteBlog(@PathVariable Long id) {
         boolean flag = jBlogService.removeById(id);
-        // todo 把标签也一起删除。
         if (flag) {
-            return R.ok().message("删除博客成功");
+            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+            qw.eq("blog_id", id);
+            boolean flag1 = jBlogTagService.remove(qw);
+            if(flag1){
+                return R.ok().message("删除博客成功");
+            }
         }
         return R.error().message("删除博客失败或者不存在该博客");
-    }
-
-    @PutMapping("/admin/blog/{id}")
-    public R adminEditBlog(@RequestBody AdminEditBlogVo adminEditBlogVo, @PathVariable Long id) {
-        JBlog jBlog = new JBlog();
-        BeanUtils.copyProperties(adminEditBlogVo, jBlog);
-        jBlog.setId(id);
-        jBlog.setPublished(true);
-        jBlog.setLastEdit(new Date());
-        boolean flag = jBlogService.updateById(jBlog);
-        if(flag) {
-            return R.ok().message("修改博客成功");
-        }
-        return R.error().message("修改博客失败");
     }
 
     @GetMapping("/admin/blogs/{page}/{limit}")
@@ -110,6 +131,11 @@ public class JBlogController {
                 blogShowVo.setType("原创");
             } else {
                 blogShowVo.setType("转载");
+            }
+            if(jb.getPublished()) {
+                blogShowVo.setPublished("已发布");
+            } else {
+                blogShowVo.setPublished("草稿");
             }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
             Long id = jb.getId();
@@ -200,6 +226,7 @@ public class JBlogController {
     public R getBlogs(@PathVariable long page, @PathVariable long limit) {
         Page<JBlog> pageBlog = new Page<>(page, limit);
         QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
+        qw1.eq("published", true);
         qw1.orderByDesc("last_edit");
         jBlogService.page(pageBlog, qw1);
         long total = pageBlog.getTotal();
