@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import adminIndex from '../views/adminIndex'
+import index from '../views/index'
 import BlogData from '../components/admin/BlogData'
 import BlogList from '../components/admin/BlogList'
 import AddBlog from '../components/admin/AddBlog'
@@ -9,6 +10,11 @@ import AddBlog from '../components/admin/AddBlog'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'Index',
+    component: index
+  },
   {
     path: '/login',
     name: 'Login',

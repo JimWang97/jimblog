@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // todo 这里不要跳转到登陆入口，跳转到博客首页去
       next({
-        path: '/login'
+        path: '/'
         // query: {
         //   redirect: to.fullPath
         // }
