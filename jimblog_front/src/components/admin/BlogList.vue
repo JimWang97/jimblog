@@ -68,7 +68,6 @@ export default {
       blogApi.adminGetBlogs(this.page, this.limit).then(res => {
         if (res.code === 20000) {
           this.tableData = res.data.blogs
-          console.log(this.tableData)
           this.total = res.data.total
         }
       })

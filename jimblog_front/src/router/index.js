@@ -6,6 +6,8 @@ import index from '../views/index'
 import BlogData from '../components/admin/BlogData'
 import BlogList from '../components/admin/BlogList'
 import AddBlog from '../components/admin/AddBlog'
+import IndexMain from '../components/IndexMain'
+import BlogMain from '../components/BlogMain'
 
 Vue.use(VueRouter)
 
@@ -13,7 +15,16 @@ const routes = [
   {
     path: '/',
     name: 'Index',
-    component: index
+    component: index,
+    children: [{
+      path: '/',
+      name: 'IndexMain',
+      component: IndexMain
+    }, {
+      path: '/blogs',
+      name: 'BLogList',
+      component: BlogMain
+    }]
   },
   {
     path: '/login',

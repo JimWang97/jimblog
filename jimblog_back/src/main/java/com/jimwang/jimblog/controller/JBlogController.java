@@ -123,32 +123,7 @@ public class JBlogController {
         jBlogService.page(pageBlog, qw1);
         long total = pageBlog.getTotal();
         List<JBlog> jBlogs = pageBlog.getRecords();
-        List<blogShowVo> blogShowVos = new ArrayList<>();
-        for(JBlog jb : jBlogs) {
-            blogShowVo blogShowVo = new blogShowVo();
-            BeanUtils.copyProperties(jb, blogShowVo);
-            if(jb.getType()){
-                blogShowVo.setType("原创");
-            } else {
-                blogShowVo.setType("转载");
-            }
-            if(jb.getPublished()) {
-                blogShowVo.setPublished("已发布");
-            } else {
-                blogShowVo.setPublished("草稿");
-            }
-            QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
-            Long id = jb.getId();
-            qw.eq("blog_id", id);
-
-            List<JBlogTag> jBlogTags = jBlogTagService.list(qw);
-            List<String> tags = new ArrayList<>();
-            for(JBlogTag jt : jBlogTags) {
-                tags.add(jt.getTag());
-            }
-            blogShowVo.setTags(tags);
-            blogShowVos.add(blogShowVo);
-        }
+        List<blogShowVo> blogShowVos = JBlogToShowBlog(jBlogs);
         return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
     }
 
@@ -222,7 +197,7 @@ public class JBlogController {
         return R.error().message("查询失败或不存在该博客");
     }
 
-    @GetMapping("/blogs")
+    @GetMapping("/blogs/{page}/{limit}")
     public R getBlogs(@PathVariable long page, @PathVariable long limit) {
         Page<JBlog> pageBlog = new Page<>(page, limit);
         QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
@@ -231,6 +206,23 @@ public class JBlogController {
         jBlogService.page(pageBlog, qw1);
         long total = pageBlog.getTotal();
         List<JBlog> jBlogs = pageBlog.getRecords();
+        List<blogShowVo> blogShowVos = JBlogToShowBlog(jBlogs);
+        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
+    }
+
+    @GetMapping("/topBlogs/{num}")
+    public R getTopBlogs(@PathVariable int num) {
+        QueryWrapper<JBlog> qw = new QueryWrapper<>();
+        qw.eq("recommend", true);
+        qw.eq("published", true);
+        qw.orderByDesc("last_edit");
+        qw.last("limit 0," + num);
+        List<JBlog> jBlogs = jBlogService.list(qw);
+        List<blogShowVo> blogShowVos = JBlogToShowBlog(jBlogs);
+        return R.ok().message("查询成功").data("blogs", blogShowVos);
+    }
+
+    public List<blogShowVo> JBlogToShowBlog(List<JBlog> jBlogs) {
         List<blogShowVo> blogShowVos = new ArrayList<>();
         for(JBlog jb : jBlogs) {
             blogShowVo blogShowVo = new blogShowVo();
@@ -239,6 +231,11 @@ public class JBlogController {
                 blogShowVo.setType("原创");
             } else {
                 blogShowVo.setType("转载");
+            }
+            if(jb.getPublished()) {
+                blogShowVo.setPublished("已发布");
+            } else {
+                blogShowVo.setPublished("草稿");
             }
             QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
             Long id = jb.getId();
@@ -252,7 +249,7 @@ public class JBlogController {
             blogShowVo.setTags(tags);
             blogShowVos.add(blogShowVo);
         }
-        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
+        return blogShowVos;
     }
 }
 

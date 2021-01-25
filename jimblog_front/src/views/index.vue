@@ -1,7 +1,9 @@
 <template>
   <div>
-    <Navi style="width: 80%; position: fixed"></Navi>
+    <Navi style="width: 90%; position: absolute; z-index: 100"></Navi>
     <Header class="header"></Header>
+    <router-view class="main"></router-view>
+
   </div>
 </template>
 
@@ -19,10 +21,17 @@ export default {
 
 <style scoped>
 .header {
-  position: page;
   top:0px;
   left:0px;
   right:0px;
   bottom:0px;
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  z-index: 0;
+}
+.main {
+  margin-top: 0px;
+  padding-top: 500px;
 }
 </style>

@@ -16,7 +16,7 @@ export default {
 <style scoped>
   .tip-div {
     width: 100%;
-    height: 450px;
+    height: 100%;
     color: red;
     background: rgba(0, 0, 0, 0) url('../assets/background.jpg') no-repeat scroll 50% 40%;
     background-size: auto;

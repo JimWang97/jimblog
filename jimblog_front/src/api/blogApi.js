@@ -37,5 +37,17 @@ export default {
       method: 'post',
       data: blog
     })
+  },
+  getTopBlogs (num) {
+    return request({
+      url: `/api/topBlogs/${num}`,
+      method: 'get'
+    })
+  },
+  getBlogs (page, limit) {
+    return request({
+      url: `/api/blogs/${page}/${limit}`,
+      method: 'get'
+    })
   }
 }
