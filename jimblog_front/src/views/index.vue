@@ -3,18 +3,20 @@
     <Navi style="width: 90%; position: absolute; z-index: 100"></Navi>
     <Header class="header"></Header>
     <router-view class="main"></router-view>
-
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Navi from '../components/Navi'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 export default {
   name: 'index.vue',
   components: {
     Navi,
-    Header
+    Header,
+    Footer
   }
 }
 </script>

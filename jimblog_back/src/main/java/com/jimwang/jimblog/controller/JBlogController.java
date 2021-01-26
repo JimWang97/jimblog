@@ -176,6 +176,8 @@ public class JBlogController {
     public R getBlog(@PathVariable Long id) {
         JBlog jBlog = jBlogService.getById(id);
         if(jBlog!=null) {
+            jBlog.setViews(jBlog.getViews()+1);
+            jBlogService.updateById(jBlog);
             blogShowVo blogShowVo = new blogShowVo();
             BeanUtils.copyProperties(jBlog, blogShowVo);
             if(jBlog.getType()){
@@ -202,6 +204,20 @@ public class JBlogController {
         Page<JBlog> pageBlog = new Page<>(page, limit);
         QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
         qw1.eq("published", true);
+        qw1.orderByDesc("last_edit");
+        jBlogService.page(pageBlog, qw1);
+        long total = pageBlog.getTotal();
+        List<JBlog> jBlogs = pageBlog.getRecords();
+        List<blogShowVo> blogShowVos = JBlogToShowBlog(jBlogs);
+        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
+    }
+
+    @GetMapping("/search/{title}/{page}/{limit}")
+    public R search(@PathVariable String title, @PathVariable long page, @PathVariable long limit) {
+        Page<JBlog> pageBlog = new Page<>(page, limit);
+        QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
+        qw1.eq("published", true);
+        qw1.like("title", title);
         qw1.orderByDesc("last_edit");
         jBlogService.page(pageBlog, qw1);
         long total = pageBlog.getTotal();

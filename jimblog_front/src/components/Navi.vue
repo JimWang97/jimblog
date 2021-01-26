@@ -12,7 +12,9 @@
         </router-link>
       </el-col>
       <el-col :span="2">
-        <a href="#" class="home_link">Jim的项目</a>
+        <router-link to="/program">
+          <div class="home_link">Jim的项目</div>
+        </router-link>
       </el-col>
       <el-col :span="2">
         <a href="#" class="home_link">Jim的足迹</a>

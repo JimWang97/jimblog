@@ -1,6 +1,6 @@
 package com.jimwang.jimblog.service;
 
-import com.jimwang.jimblog.entity.JTag;
+import com.jimwang.jimblog.entity.JProgram;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author jimwang
- * @since 2021-01-19
+ * @since 2021-01-26
  */
-public interface JTagService extends IService<JTag> {
+public interface JProgramService extends IService<JProgram> {
 
 }

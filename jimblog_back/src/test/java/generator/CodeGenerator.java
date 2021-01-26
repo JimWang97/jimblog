@@ -53,7 +53,7 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("j_blog", "j_tag", "j_blog_tag");//表的名称，可以多张表
+        strategy.setInclude("j_program");//表的名称，可以多张表
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 

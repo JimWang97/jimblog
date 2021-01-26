@@ -8,6 +8,8 @@ import BlogList from '../components/admin/BlogList'
 import AddBlog from '../components/admin/AddBlog'
 import IndexMain from '../components/IndexMain'
 import BlogMain from '../components/BlogMain'
+import Blog from '../components/Blog'
+import Program from '../components/Program'
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,14 @@ const routes = [
       path: '/blogs',
       name: 'BLogList',
       component: BlogMain
+    }, {
+      path: '/blog',
+      name: 'Blog',
+      component: Blog
+    }, {
+      path: '/program',
+      name: 'Program',
+      component: Program
     }]
   },
   {

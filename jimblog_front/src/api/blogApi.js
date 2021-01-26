@@ -49,5 +49,17 @@ export default {
       url: `/api/blogs/${page}/${limit}`,
       method: 'get'
     })
+  },
+  getBlog (id) {
+    return request({
+      url: `/api/blog/${id}`,
+      method: 'get'
+    })
+  },
+  searchBlog (title, page, limit) {
+    return request({
+      url: `/api/search/${title}/${page}/${limit}`,
+      method: 'get'
+    })
   }
 }

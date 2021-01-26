@@ -1,6 +1,6 @@
 package com.jimwang.jimblog.mapper;
 
-import com.jimwang.jimblog.entity.JTag;
+import com.jimwang.jimblog.entity.JProgram;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author jimwang
- * @since 2021-01-19
+ * @since 2021-01-26
  */
-public interface JTagMapper extends BaseMapper<JTag> {
+public interface JProgramMapper extends BaseMapper<JProgram> {
 
 }

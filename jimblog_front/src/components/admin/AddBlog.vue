@@ -43,7 +43,7 @@
       </el-row>
       <el-form-item>
         <div class="markdown">
-          <Markdown :height=500 theme="gitHub" v-model="ruleForm.content"/>
+          <Markdown :height=500 theme="gitHub" style="text-align: left" v-model="ruleForm.content"/>
         </div>
       </el-form-item>
       <el-form-item>
@@ -140,7 +140,8 @@ export default {
   },
   created () {
     this.getTags()
-    if (this.$route.query) {
+    if (this.$route.query.id) {
+      console.log(this.$route.query.id)
       this.ruleForm.id = parseInt(this.$route.query.id)
       blogApi.adminGetBlog(this.ruleForm.id).then(res => {
         if (res.code === 20000) {
