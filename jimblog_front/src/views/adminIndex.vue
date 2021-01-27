@@ -26,7 +26,11 @@
               <template slot="title"><i class="el-icon-menu"></i>项目展示</template>
               <el-menu-item-group>
                 <template slot="title">项目</template>
-                <el-menu-item index="2-1">项目列表</el-menu-item>
+                <router-link to="/admin/index/programlist">
+                  <el-menu-item index="2-1">
+                    项目列表
+                  </el-menu-item>
+                </router-link>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="3">

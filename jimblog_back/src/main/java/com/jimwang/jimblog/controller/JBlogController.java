@@ -49,7 +49,7 @@ public class JBlogController {
                 List<String> tags = adminEditBlogVo.getTags();
                 boolean flag1 = true;
                 for(String tag : tags) {
-                    flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
+                    flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag, null));
                 }
                 if(flag1) {
                     return R.ok().message("添加博客成功");
@@ -78,14 +78,7 @@ public class JBlogController {
             jBlog.setLastEdit(new Date());
             boolean flag = jBlogService.save(jBlog);
             if (flag) {
-                List<String> tags = adminEditBlogVo.getTags();
-                boolean flag1 = true;
-                for(String tag : tags) {
-                    flag1 &= jBlogTagService.save(new JBlogTag(jBlog.getId(), tag));
-                }
-                if(flag1) {
-                    return R.ok().message("保存博客成功");
-                }
+                return R.ok().message("保存博客成功");
             }
             return R.error().message("保存博客失败");
         } else {
@@ -95,7 +88,12 @@ public class JBlogController {
             jBlog.setLastEdit(new Date());
             boolean flag = jBlogService.updateById(jBlog);
             if(flag) {
-                return R.ok().message("保存博客成功");
+                QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+                qw.eq("blog_id", adminEditBlogVo.getId());
+                boolean flag1 = jBlogTagService.remove(qw);
+                if(flag1) {
+                    return R.ok().message("保存博客成功");
+                }
             }
             return R.error().message("保存博客失败");
         }
@@ -218,6 +216,27 @@ public class JBlogController {
         QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
         qw1.eq("published", true);
         qw1.like("title", title);
+        qw1.orderByDesc("last_edit");
+        jBlogService.page(pageBlog, qw1);
+        long total = pageBlog.getTotal();
+        List<JBlog> jBlogs = pageBlog.getRecords();
+        List<blogShowVo> blogShowVos = JBlogToShowBlog(jBlogs);
+        return R.ok().message("查询成功").data("blogs", blogShowVos).data("total", total);
+    }
+
+    @GetMapping("/searchByTag/{tag}/{page}/{limit}")
+    public R searchByTag(@PathVariable String tag, @PathVariable long page, @PathVariable long limit) {
+        QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+        qw.eq("tag", tag);
+        List<JBlogTag> tags = jBlogTagService.list(qw);
+        List<Long> ids = new ArrayList<>();
+        for(JBlogTag t : tags) {
+            ids.add(t.getBlogId());
+        }
+        Page<JBlog> pageBlog = new Page<>(page, limit);
+        QueryWrapper<JBlog> qw1 = new QueryWrapper<>();
+        qw1.eq("published", true);
+        qw1.in("id", ids);
         qw1.orderByDesc("last_edit");
         jBlogService.page(pageBlog, qw1);
         long total = pageBlog.getTotal();

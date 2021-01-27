@@ -17,7 +17,9 @@
         </router-link>
       </el-col>
       <el-col :span="2">
-        <a href="#" class="home_link">Jim的足迹</a>
+        <router-link to="/track">
+          <div class="home_link">Jim的足迹</div>
+        </router-link>
       </el-col>
       <el-col :span="2">
         <a href="#" class="home_link">关于Jim</a>

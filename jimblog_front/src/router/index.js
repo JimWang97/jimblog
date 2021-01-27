@@ -10,6 +10,9 @@ import IndexMain from '../components/IndexMain'
 import BlogMain from '../components/BlogMain'
 import Blog from '../components/Blog'
 import Program from '../components/Program'
+import ProgramList from "../components/admin/ProgramList";
+import AddProgram from "../components/admin/AddProgram";
+import Track from "../components/Track";
 
 Vue.use(VueRouter)
 
@@ -34,6 +37,10 @@ const routes = [
       path: '/program',
       name: 'Program',
       component: Program
+    }, {
+      path: '/track',
+      name: 'Track',
+      component: Track
     }]
   },
   {
@@ -61,6 +68,16 @@ const routes = [
       name: 'AdminAddBlog',
       meta: { type: 'login' },
       component: AddBlog
+    }, {
+      path: '/admin/index/programlist',
+      name: 'ProgramList',
+      meta: { type: 'login' },
+      component: ProgramList
+    }, {
+      path: '/admin/addProgram',
+      name: 'AdminAddProgram',
+      meta: { type: 'login' },
+      component: AddProgram
     }]
   }
 ]

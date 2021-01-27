@@ -1,6 +1,7 @@
 package com.jimwang.jimblog.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -34,5 +35,6 @@ public class JBlogTag implements Serializable {
     @ApiModelProperty(value = "标签名")
     private String tag;
 
-
+    @TableField(exist = false)
+    private Long tagNums;
 }

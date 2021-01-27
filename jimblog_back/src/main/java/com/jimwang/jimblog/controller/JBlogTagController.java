@@ -32,8 +32,9 @@ public class JBlogTagController {
     @GetMapping("/getTags")
     public R getTags(){
         QueryWrapper<JBlogTag> qw = new QueryWrapper<>();
+        qw.select("count(tag) as tagNums, tag");
         qw.groupBy("tag");
-        qw.select("tag");
+        qw.orderByDesc("tagNums");
         List<JBlogTag> list = jBlogTagService.list(qw);
         return R.ok().data("tags", list);
     }

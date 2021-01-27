@@ -61,5 +61,11 @@ export default {
       url: `/api/search/${title}/${page}/${limit}`,
       method: 'get'
     })
-  }
+  },
+  searchBlogByTag (tag, page, limit) {
+    return request({
+      url: `/api/searchByTag/${tag}/${page}/${limit}`,
+      method: 'get'
+    })
+  },
 }
